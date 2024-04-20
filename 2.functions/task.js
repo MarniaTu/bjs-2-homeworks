@@ -30,56 +30,52 @@ function getArrayParams(...arr) {
 
 function summElementsWorker(...arr) {
 	let sum = 0;
+	if (arr.length === 0) return 0;
 
 	for (let i = 0; i < arr.length; i++) {
-
-		if (arr.length === 0) {
-			return 0;
-		} else
-			sum += arr[i];
+		sum += arr[i];
 	}
 	return sum;
 }
   
 
 function differenceMaxMinWorker(...arr) {
+	if (arr.length === 0) return 0;
+
 	let min = Math.min(...arr);
 	let max = Math.max(...arr);
 	const d = max - min;
 
-	if (arr.length === 0) {
-		return 0;
-
-	} else return d;
+	return d;
 
 }
 
 function differenceEvenOddWorker(...arr) {
+	if (arr.length === 0) return 0;
+
 	let sumEvenElement = 0;
 	let sumOddElement = 0;
 
 	for (let i = 0; i < arr.length; i++) {
-		if (arr.length === 0) {
-			return 0;
 
-		} else if (arr[i] % 2 === 0) {
+		if (arr[i] % 2 === 0) {
 			sumEvenElement += arr[i];
 
-		} else 
+		} else {
 			sumOddElement += arr[i];
-  }
-		const d = sumEvenElement - sumOddElement;
-		return d;
-	
+		}
+	}
+	const d = sumEvenElement - sumOddElement;
+	return d;
+
 }
 
 function averageEvenElementsWorker(...arr) {
+	if (arr.length === 0) return 0;
+
 	let sumEvenElement = 0;
 	let countEvenElement = 0;
 
-	if (arr.length === 0) {
-		return 0;
-	}
 	for (let i = 0; i < arr.length; i++) {
 
 		if (arr[i] % 2 === 0) {
@@ -88,6 +84,7 @@ function averageEvenElementsWorker(...arr) {
 			countEvenElement++;
 		}
 	}
+	if (countEvenElement === 0) return 0;
 	let avg = sumEvenElement / countEvenElement;
 	return avg;
 
@@ -95,10 +92,9 @@ function averageEvenElementsWorker(...arr) {
 
 function makeWork(arrOfArr, func) {
 	let maxWorkerResult = -Infinity;
-	const arr = [...arrOfArr];
 
-	for (let i = 0; i < arr.length; i++) {
-		const result = func(arr[i]);
+	for (let i = 0; i < arrOfArr.length; i++) {
+		const result = func(...arrOfArr[i]);
 
 		if (result > maxWorkerResult) {
 			maxWorkerResult = result;
