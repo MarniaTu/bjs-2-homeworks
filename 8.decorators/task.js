@@ -38,40 +38,37 @@ function cachingDecoratorNew(func) {
 function debounceDecoratorNew(func, delay) {
 
 	let timeoutId;
-	let count = 0; // сколько сигналов отправлено
-	let allCount = 0; // сколько раз запустилась обертка
-
 
 	function wrapper(...args) {
 
+		wrapper.allCount++; // считаем вызов декоратора
 
 		if (timeoutId) {
 
 			console.log("уже есть таймаут", args);
 			clearTimeout(timeoutId);
-			allCount++;
+
 		}
 
 		if (!timeoutId) {
-			console.log("первый сигнал", args);
-			func.apply(this, args);
-			count++;
+			console.log("первый вызов декорируемой функции", args);
+			func(...args);
+			wrapper.count++; // считаем вызов декорируемой функции
 		}
 
 		timeoutId = setTimeout(() => {
 			console.log("задержка больше 2000млсек, сработал таймаут");
-			count++;
-			func.apply(this, args);
-			wrapper.count = count;
+			func(...args);
+			wrapper.count++; // считаем вызов декорируемой функции
+
 
 		}, delay);
-
-		wrapper.allCount = allCount;
 
 	}
 
 
-
+	wrapper.count = 0;
+	wrapper.allCount = 0;
 	return wrapper;
 
 }
